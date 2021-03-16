@@ -4,7 +4,7 @@ Polkascan Open-Source Application
 ## Quick deployment (Use hosted Polkascan API endpoints)
 ### Step 1: Clone repository: 
 ```bash
-git clone https://github.com/polkascan/polkascan-os.git
+git clone https://github.com/soramitsu/polkascan-os.git
 ```
 ### Step 2: Change directory: 
 ```bash
@@ -16,78 +16,25 @@ git tag
 ```
 ### Step 4: Checkout latest releases: 
 ```bash
-git checkout v0.x.x
-```
-### Step 5: Make sure to also clone submodules within the cloned directory: 
-```bash
-git submodule update --init --recursive
-```
-### Step 6: Then build the other docker containers
-```bash
-docker-compose -p kusama -f docker-compose.kusama-quick.yml up --build
+git checkout v0.x.x-sora
 ```
 
-## Use public Substrate RPC endpoints
+### Step 5: Check access to start.sh file
+```bash
+cd explorer-api
+chmod +x start.sh
 
-### Step 1: Clone repository: 
-```bash
-git clone https://github.com/polkascan/polkascan-os.git
+cd harvester
+chmod +x start.sh
 ```
-### Step 2: Change directory: 
-```bash
-cd polkascan-os
-```
-### Step 3: Check available releases: 
-```bash
-git tag
-```
-### Step 4: Checkout latest releases: 
-```bash
-git checkout v0.x.x
-```
-### Step 5: Make sure to also clone submodules within the cloned directory: 
-```bash
-git submodule update --init --recursive
-```
+
 ### Step 6: During the first run let MySQL initialize (wait for about a minute)
 ```bash
-docker-compose -p kusama -f docker-compose.kusama-public.yml up -d mysql
+docker-compose -p node-template -f docker-compose.substrate-node-template.yml up -d mysql
 ```
 ### Step 7: Then build the other docker containers
 ```bash
-docker-compose -p kusama -f docker-compose.kusama-public.yml up --build
-```
-
-## Full deployment
-The following steps will run a full Polkascan-stack that harvests blocks from a new local network.
-
-### Step 1: Clone repository: 
-```bash
-git clone https://github.com/polkascan/polkascan-os.git
-```
-### Step 2: Change directory: 
-```bash
-cd polkascan-os
-```
-### Step 3: Check available releases: 
-```bash
-git tag
-```
-### Step 4: Checkout latest releases: 
-```bash
-git checkout v0.x.x
-```
-### Step 5: Make sure to also clone submodules within the cloned directory: 
-```bash
-git submodule update --init --recursive
-```
-### Step 6: During the first run let MySQL initialize (wait for about a minute)
-```bash
-docker-compose -p kusama -f docker-compose.kusama-full.yml up -d mysql
-```
-### Step 7: Then build the other docker containers
-```bash
-docker-compose -p kusama -f docker-compose.kusama-full.yml up --build
+docker-compose -p node-template -f docker-compose.substrate-node-template.yml up --build
 ```
 
 ## Links to applications
@@ -96,10 +43,6 @@ docker-compose -p kusama -f docker-compose.kusama-full.yml up --build
 * Harvester Task Monitor: http://127.0.0.1:5555
 * Polkadot JS Apps: http://127.0.0.1:8081
 
-## Other networks
-
-* Polkadot: Use `docker-compose.polkadot-quick.yml`, `docker-compose.polkadot-public.yml` and `docker-compose.polkadot-full.yml`
-* Substrate Node Template (https://github.com/substrate-developer-hub/substrate-node-template): Use `docker-compose.substrate-node-template.yml`
 
 ## Add custom types for Substrate Node Template
 
@@ -126,6 +69,15 @@ docker system prune -a
 ```bash
 docker volume prune
 ```
+
+### System requirements
+Memory: >2GB (more is better), Storage: >5GB (SSD is better), Processor: more and faster cores is better (Intel i3).
+
+Software requirements: Git, Docker & Docker Compose.
+
+Deployment of the enriched Substrate Interface has been tested on Mac, Linux and Windows.
+
+
 
 ## Troubleshooting
 
